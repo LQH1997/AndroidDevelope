@@ -1,6 +1,7 @@
 package com.example.andrew.lab4;
 
 import android.content.DialogInterface;
+import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -26,25 +27,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ImageView logInImage = (ImageView) findViewById(R.id.sysuPic);
         logInImage.setOnClickListener(imagineClickedListener);
-        RadioButton stuSelected = (RadioButton) findViewById(R.id.stuButton);
-        stuSelected.setOnClickListener(stuSelectedListener);
-        RadioButton falSelected = (RadioButton) findViewById(R.id.falButton);
-         falSelected.setOnClickListener(falSelectedListener);
+      //  RadioButton stuSelected = (RadioButton) findViewById(R.id.stuButton);
+      //  stuSelected.setOnClickListener(stuSelectedListener);
+      //  RadioButton falSelected = (RadioButton) findViewById(R.id.falButton);
+      //  falSelected.setOnClickListener(falSelectedListener);
         Button signUpButton = (Button) findViewById(R.id.signUpButton);
         Button logInButton = (Button) findViewById(R.id.logInButton);
         signUpButton.setOnClickListener(signUpButtonListener);
         logInButton.setOnClickListener(logInButtonListener);
-        //   RadioGroup stuOrFalSelect = (RadioGroup) findViewById(R.id.radioGroup);
-        //  stuOrFalSelect.setOnCheckedChangeListener(changeChoiceListener);
+        RadioGroup stuOrFalSelect = (RadioGroup) findViewById(R.id.radioGroup);
+        stuOrFalSelect.setOnCheckedChangeListener(buttonChanged);
       //  EditText stuNumber = (EditText) findViewById(R.id.editText);
        // EditText password = (EditText) findViewById(R.id.editText2);
        // Button checkButtonClicked = (Button) findViewById(R.id.checkButton);
        // checkButtonClicked.setOnClickListener(checkClicked);
     }
 
-    //public View.setOnCheckedChangeListener changChoiceListener = new View.setOnCheckedChangeListener() {
+    //public View].setOnCheckedChangeListener changChoiceListener = new View.setOnCheckedChangeListener() {
 //
   //  }
+    public RadioGroup.OnCheckedChangeListener buttonChanged = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i){
+            RadioButton a = (RadioButton) findViewById(i);
+            showContent("您选择了"+a.getText());
+        }
+
+    };
+
 
 
     public View.OnClickListener imagineClickedListener = new View.OnClickListener() {
@@ -72,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             RadioButton stuBtn = (RadioButton) findViewById(R.id.stuButton);
-            if(stuBtn.isChecked());
-            else showContent("您选择了学生");
+            showContent("您选择了学生");
         }
     };
 
@@ -81,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             RadioButton falBtn = (RadioButton) findViewById(R.id.falButton);
-            if(falBtn.isChecked());
             showContent("您选择了教职工");
         }
     };
