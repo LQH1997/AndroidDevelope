@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by Andrew on 2017/10/18.
  */
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> implements View.OnClickListener {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener {
     private ArrayList<ListItems> myData;
 
     public CartAdapter(ArrayList<ListItems> a) {
@@ -26,18 +26,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> im
         void onItemClick(View view, int position);
     }
 
-//    public  static interface OnItemLongClickListener {
-//        void onItemLongClick(View view, int position);
-//    }
+    public  static interface OnItemLongClickListener {
+        void onItemLongClick(View view, int position);
+    }
 
     private CartAdapter.OnItemClickListener mOnItemClickListener = null;
-//    private CartAdapter.OnItemLongClickListener mOnItemLongClickListener = null;
+    private CartAdapter.OnItemLongClickListener mOnItemLongClickListener = null;
 
     @Override
     public CartAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.items_info_in_cart, viewGroup, false);
         CartAdapter.ViewHolder vh = new CartAdapter.ViewHolder(view);
         view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
         return vh;
     }
 
@@ -57,13 +58,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> im
     }
 
 
+    @Override
+    public boolean onLongClick(View v) {
+        if (mOnItemLongClickListener != null) {
+            mOnItemLongClickListener.onItemLongClick(v,(int)v.getTag());
+        }
+        return false;
+    }
+
+
     public void setOnItemClickListener(CartAdapter.OnItemClickListener listener) {
         this.mOnItemClickListener = listener;
     }
 
-//    public void setOnItemLonngClickListener(CartAdapter.OnItemLongClickListener listener) {
-//        this.mOnItemLongClickListener = listener;
-//    }
+    public void setOnItemLongClickListener(CartAdapter.OnItemLongClickListener listener) {
+        this.mOnItemLongClickListener = listener;
+    }
 
     @Override
     public int getItemCount() {

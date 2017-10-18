@@ -19,7 +19,8 @@
         android:text="A"
         android:textSize="22sp"
         android:gravity="center"
-        android:id="@+id/header"/>
+        android:id="@+id/header"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/id_num"

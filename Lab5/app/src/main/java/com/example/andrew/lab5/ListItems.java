@@ -11,6 +11,7 @@ public class ListItems implements Serializable {
     String Price;
     String Catagory;
     String Info;
+    String src;
 
 
     String getName() {
@@ -29,11 +30,14 @@ public class ListItems implements Serializable {
         return Info;
     }
 
-    void setAttr(String name, String price, String cata, String info) {
+    String getSrc() {return src; }
+
+    void setAttr(String name, String price, String cata, String info, String s) {
         this.Catagory = cata;
         this.ProductName = name;
         this.Price = price;
         this.Info = info;
+        this.src = s;
     }
 }
 
