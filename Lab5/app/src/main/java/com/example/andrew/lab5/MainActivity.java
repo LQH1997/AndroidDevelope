@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,10 +16,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-     RecyclerView myRecyclerView;
+     //RecyclerView myRecyclerView;
      ArrayList<ListItems> myData;
-     HomeAdapter myAdapter;
+    // HomeAdapter myAdapter;
     int countItem[];
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private MyAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +31,37 @@ public class MainActivity extends AppCompatActivity {
 
         initData();
 
-        myRecyclerView = (RecyclerView) findViewById(R.id.my_recycleview);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setAdapter(myAdapter = new HomeAdapter());
+        mRecyclerView = (RecyclerView)findViewById(R.id.my_recycleview);
+        //创建默认的线性LayoutManager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+        mRecyclerView.setHasFixedSize(true);
+        //创建并设置Adapter
+        mAdapter = new MyAdapter(myData);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view , int position){
+
+                countItem[position] += 1;
+                Integer a = countItem[position];
+                String b = a.toString();
+                Toast.makeText(MainActivity.this, myData.get(position).getName() + " " + b, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        mAdapter.setOnItemLonngClickListener(new MyAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(MainActivity.this, "aaaaa", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         FloatingActionButton carButton = (FloatingActionButton) findViewById(R.id.fab);
         carButton.setOnClickListener(carClickListener);
-        RecyclerView itemButton = (RecyclerView) findViewById(R.id.my_recycleview);
-        itemButton.setOnClickListener(itemClickListener);
 
     }
 
@@ -71,65 +97,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
-
-
-        @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                    MainActivity.this).inflate(R.layout.items, parent,
-                    false));
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
-            holder.tv.setText(myData.get(position).getName());
-            holder.tv1.setText(myData.get(position).getName().substring(0,1));
-            //holder.tv.setOnClickListener(itemClickListener);
-        }
-
-        @Override
-        public int getItemCount() {
-            return myData.size();
-        }
-
-        class MyViewHolder extends ViewHolder
-                //implements View.OnClickListener, View.OnLongClickListener
-        {
-
-            TextView tv, tv1;
-
-            public int position;
-
-            public MyViewHolder(View view) {
-                super(view);
-                tv = (TextView) view.findViewById(R.id.id_num);
-                tv1 = (TextView) view.findViewById(R.id.header);
-            }
-
-
-        }
-
-    }
-    
     FloatingActionButton.OnClickListener carClickListener = new FloatingActionButton.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //int a = countItem[0];
-            //Integer b = a;
-           // Toast.makeText(MainActivity.this, b.toString(), Toast.LENGTH_SHORT).show();
             Intent intent=new Intent();
             intent.setClass(MainActivity.this, shopping_cart.class);
+            intent.putExtra("countItem", countItem);
+            intent.putExtra("myData", myData);
             startActivity(intent);
         }
     };
 
-    RecyclerView.OnClickListener itemClickListener = new RecyclerView.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(MainActivity.this, "aaa", Toast.LENGTH_LONG).show();
-        }
-    };
 
 }

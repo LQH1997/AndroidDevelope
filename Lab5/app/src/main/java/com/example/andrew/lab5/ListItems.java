@@ -1,14 +1,17 @@
 package com.example.andrew.lab5;
 
+import java.io.Serializable;
+
 /**
  * Created by Andrew on 2017/10/18.
  */
 
-public class ListItems {
+public class ListItems implements Serializable {
     String ProductName;
     String Price;
     String Catagory;
     String Info;
+
 
     String getName() {
         return ProductName;
@@ -29,7 +32,7 @@ public class ListItems {
     void setAttr(String name, String price, String cata, String info) {
         this.Catagory = cata;
         this.ProductName = name;
-        this.Catagory = cata;
+        this.Price = price;
         this.Info = info;
     }
 }
