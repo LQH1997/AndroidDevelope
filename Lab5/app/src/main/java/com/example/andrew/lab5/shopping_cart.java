@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class shopping_cart extends AppCompatActivity {
 
         myData = new ArrayList<ListItems>();
         for(int i = 0; i < tempData.size(); i++) {
-            if(countItem[i] != 0) {
+            if(tempData.get(i).getNum() != 0) {
                 myData.add(tempData.get(i));
             }
         }
@@ -80,7 +81,7 @@ public class shopping_cart extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         myData.remove(position);
                         mAdapter.notifyItemRemoved(position);
-                        countItem[position] = 0;
+                        //countItem[position] = 0;
                         //finish();
                     }
                 });
@@ -94,6 +95,10 @@ public class shopping_cart extends AppCompatActivity {
                 //Toast.makeText(shopping_cart.this, "long click", Toast.LENGTH_SHORT).show();
 //                myData.remove(position);
 //                mAdapter.notifyItemRemoved(position);
+//                Intent intent=new Intent();
+//                intent.setClass(shopping_cart.this, MainActivity.class);
+//                intent.putExtra("myData", myData);
+//                shopping_cart.this.setResult(RESULT_OK, intent);
             }
         });
 
@@ -101,11 +106,14 @@ public class shopping_cart extends AppCompatActivity {
     FloatingActionButton.OnClickListener mainPageButtonListener = new FloatingActionButton.OnClickListener() {
         @Override
         public void onClick(View view) {
-//            Intent intent=new Intent();
-//            intent.setClass(shopping_cart.this, MainActivity.class);
+            Intent intent=new Intent();
+            intent.setClass(shopping_cart.this, MainActivity.class);
 //            intent.putExtra("countItem", countItem);
-//            //intent.putExtra("myData", myData);
+//            Integer a = myData.size();
+//            Toast.makeText(getApplicationContext(), a.toString(), Toast.LENGTH_SHORT).show();
+            intent.putExtra("myData", myData);
 //            startActivity(intent);
+            shopping_cart.this.setResult(RESULT_OK, intent);
             finish();
         }
     };
