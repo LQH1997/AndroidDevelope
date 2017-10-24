@@ -1,5 +1,6 @@
 package com.example.andrew.lab5;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,7 +17,10 @@ import java.util.ArrayList;
  * Created by Andrew on 2017/10/18.
  */
 
+
+
 public class item_info extends AppCompatActivity {
+     int clicked = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,7 @@ public class item_info extends AppCompatActivity {
         int resID = getResources().getIdentifier(thisItem.getSrc(), "drawable", "com.example.andrew.lab5");
         itemPic.setBackgroundResource(resID);
 
+
     }
 
     ImageButton.OnClickListener goBackListener = new ImageButton.OnClickListener() {
@@ -52,10 +57,14 @@ public class item_info extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             ImageButton starButton = (ImageButton) findViewById(R.id.starButton);
-            String whichPic =  "full_star";
-            //if(starButton.getResources().getDrawable())
-            int resID = getResources().getIdentifier("full_star", "drawable", "com.example.andrew.lab5");
-            starButton.setImageResource(resID);
+            if (clicked == 0) {
+                starButton.setImageResource(getResources().getIdentifier("full_star", "drawable", "com.example.andrew.lab5"));
+                clicked = 1;
+            }
+            else if (clicked == 1) {
+                starButton.setImageResource(getResources().getIdentifier("empty_star", "drawable", "com.example.andrew.lab5"));
+                clicked = 0;
+        }
         }
     };
 }

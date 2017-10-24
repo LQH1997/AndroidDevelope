@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 //countItem[position] = 1;
                 //Integer a = countItem[position];
                 //String b = a.toString();
-                //Toast.makeText(MainActivity.this, myData.get(position).getName() + " " + b, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "商品"+myData.get(position).getName() + "已添加到购物车", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -92,6 +93,16 @@ public class MainActivity extends AppCompatActivity {
                 "Ferrero Rocher", "¥ 132.59", "重量", "300g", "ferrero",
                 "Maltesers", "¥ 141.43", "重量", "118g", "maltesers",
                 "Lindt", "¥ 139.43", "重量", "249g", "lindt",
+                "Borggreve", "¥ 28.90", "重量", "640g", "borggreve",
+                "Enchated Forest", "¥ 5.00", "作者", "Johanna Basford", "enchatedforest",
+                "Arla Milk", "¥ 59.00", "产地", "德国", "arla",
+                "Devondale Milk", "¥ 79.00", "产地", "澳大利亚", "devondale",
+                "Kindle Oasis", "¥ 2399.00", "版本", "8GB", "kindle",
+                "waitrose 早餐麦片", "¥ 179.00", "重量", "2Kg", "waitrose",
+                "Mcvitie's 饼干", "¥ 14.90", "产地", "英国", "mcvitie",
+                "Ferrero Rocher", "¥ 132.59", "重量", "300g", "ferrero",
+                "Maltesers", "¥ 141.43", "重量", "118g", "maltesers",
+                "Lindt", "¥ 139.43", "重量", "249g", "lindt",
                 "Borggreve", "¥ 28.90", "重量", "640g", "borggreve"
         };
         countItem = new int[strings1.length / 5];
@@ -117,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
             intent.setClass(MainActivity.this, shopping_cart.class);
             // intent.putExtra("countItem", countItem);
             intent.putExtra("myData", myData);
-            //startActivity(intent);
-            startActivityForResult(intent, 0);
+            startActivity(intent);
+            //startActivityForResult(intent, 0);
         }
     };
 

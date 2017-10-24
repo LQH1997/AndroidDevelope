@@ -106,14 +106,14 @@ public class shopping_cart extends AppCompatActivity {
     FloatingActionButton.OnClickListener mainPageButtonListener = new FloatingActionButton.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent=new Intent();
-            intent.setClass(shopping_cart.this, MainActivity.class);
+           // Intent intent=new Intent();
+           // intent.setClass(shopping_cart.this, MainActivity.class);
 //            intent.putExtra("countItem", countItem);
 //            Integer a = myData.size();
 //            Toast.makeText(getApplicationContext(), a.toString(), Toast.LENGTH_SHORT).show();
-            intent.putExtra("myData", myData);
+           // intent.putExtra("myData", myData);
 //            startActivity(intent);
-            shopping_cart.this.setResult(RESULT_OK, intent);
+          //  shopping_cart.this.setResult(RESULT_OK, intent);
             finish();
         }
     };
