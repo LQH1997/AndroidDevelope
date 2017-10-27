@@ -21,7 +21,7 @@ public class OnStartReceiver extends BroadcastReceiver {
 //            Toast.makeText(context, "start", Toast.LENGTH_SHORT).show();
 //        };
         ListItems notiItem = (ListItems) intent.getSerializableExtra("myData");
-        Toast.makeText(context, notiItem.getName() + " " +notiItem.getPrice(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, notiItem.getName() + " " +notiItem.getPrice(), Toast.LENGTH_SHORT).show();
         Intent intent1 = new Intent();
         intent1.setClass(context.getApplicationContext(), item_info.class);
         intent1.putExtra("myData", notiItem);
@@ -30,7 +30,7 @@ public class OnStartReceiver extends BroadcastReceiver {
         NotificationManager manger = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder onStartNotiBuilder = new NotificationCompat.Builder(context);
         onStartNotiBuilder.setContentTitle("新商品热卖")
-                .setContentText(notiItem.getName())
+                .setContentText(notiItem.getName() + "仅售" + notiItem.getPrice())
                 .setTicker("aaa")
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),context.getResources().getIdentifier(notiItem.getSrc(), "drawable", "com.example.andrew.lab5")))
                 .setSmallIcon(R.drawable.devondale)

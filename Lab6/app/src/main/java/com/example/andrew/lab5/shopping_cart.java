@@ -31,23 +31,12 @@ public class shopping_cart extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private CartAdapter mAdapter;
-    int[] countItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopping_cart);
+        EventBus.getDefault().register(this);
 
-       //EventBus.getDefault().register(this);
-
-       // ArrayList<ListItems> tempData = (ArrayList<ListItems>) getIntent().getSerializableExtra("myData");
-        //countItem = (int[]) getIntent().getSerializableExtra("countItem");
-
-      //  myData = new ArrayList<ListItems>();
-      //  for(int i = 0; i < tempData.size(); i++) {
-       //     if(tempData.get(i).getNum() != 0) {
-       //         myData.add(tempData.get(i));
-       //     }
-      //  }
         mRecyclerView = (RecyclerView)findViewById(R.id.my_recycleview_cart);
         //创建默认的线性LayoutManager
         mLayoutManager = new LinearLayoutManager(this);
@@ -65,10 +54,6 @@ public class shopping_cart extends AppCompatActivity {
             @Override
             public void onItemClick(View view , int position){
 
-               // countItem[position] += 1;
-               // Integer a = countItem[position];
-               // String b = a.toString();
-               //  Toast.makeText(shopping_cart.this, "click", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(shopping_cart.this, item_info.class);
                 intent.putExtra("myData", myData.get(position));
@@ -113,37 +98,16 @@ public class shopping_cart extends AppCompatActivity {
 
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
+    EventBus.getDefault().unregister(this);
         Log.i("ShoppingCart", "OnDestory");
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ShoppingInfoEvent event) {
-        myData.add(event.getInfo());
-        Toast.makeText(getApplicationContext(), Integer.toString(myData.size()),Toast.LENGTH_SHORT).show();
-        mRecyclerView = (RecyclerView)findViewById(R.id.my_recycleview_cart);
-        //创建默认的线性LayoutManager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
-        mRecyclerView.setHasFixedSize(true);
-        mAdapter = new CartAdapter(myData);
-        mRecyclerView.setAdapter(mAdapter);
+    public void onMessageEvent(AllShoppingList event) {
+        myData = event.getInfo();
     }
 
-//    @Subscribe
-//    public void handleSomethingElse()
+
 }

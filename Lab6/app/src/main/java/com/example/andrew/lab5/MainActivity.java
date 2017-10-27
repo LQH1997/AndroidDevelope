@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     //RecyclerView myRecyclerView;
     ArrayList<ListItems> myData;
+    ArrayList<ListItems> shoppingData;
     // HomeAdapter myAdapter;
 //    int countItem[];
     private RecyclerView mRecyclerView;
@@ -32,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
         myData = new ArrayList<ListItems>();
+        shoppingData = new ArrayList<ListItems>();
         initData();
         showNotification();
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycleview);
@@ -97,7 +102,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         Log.i("Mainactivity", "OnDestroy");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("Mainactivity", "OnStart");
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i("Mainactivity", "Onstop");
+        super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ShoppingInfoEvent event) {
+        shoppingData.add(event.getInfo());
+        Toast.makeText(getApplicationContext(),"商品"+event.getInfo().getName()+"已经添加到购物车",Toast.LENGTH_SHORT).show();
+        EventBus.getDefault().postSticky(new AllShoppingList(shoppingData));
     }
 
     protected void initData() {
@@ -111,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 "Maltesers", "¥ 141.43", "重量", "118g", "maltesers",
                 "Lindt", "¥ 139.43", "重量", "249g", "lindt",
                 "Borggreve", "¥ 28.90", "重量", "640g", "borggreve",
-                "Enchated Forest", "¥ 5.00", "作者", "Johanna Basford", "enchatedforest",
 
         };
         myData = new ArrayList<ListItems>();
