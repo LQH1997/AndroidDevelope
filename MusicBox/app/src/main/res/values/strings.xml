@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MusicBox</string>
+    <string name="btnPlayorPause">PlAY/PAUSE</string>
+    <string name="btnStop">STOP</string>
+    <string name="btnQuit">QUIT</string>
+    <string name="btnPre">PREVIOUS</string>
+    <string name="btnNext">NEXT</string>
+
+    <string name="play">Play</string>
+    <string name="playing">Playing</string>
+    <string name="pause">Pause</string>
+</resources>
