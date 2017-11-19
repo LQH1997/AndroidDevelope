@@ -2,6 +2,7 @@ package com.example.andrew.musicbox;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity  {
     boolean isStarted = false;
+    private IBinder iBinder;
     private MusicService musicService;
     private SeekBar seekBar;
     private TextView musicStatus, musicTime, totalTime;
@@ -31,20 +33,24 @@ public class MainActivity extends AppCompatActivity  {
     private ObjectAnimator animator;
     private ServiceConnection sc = new ServiceConnection() {
         @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            musicService = ((MusicService.MyBinder)iBinder).getService();
+        public void onServiceConnected(ComponentName componentName, IBinder service) {
+          //  musicService = ((MusicService.MyBinder)iBinder).getService();
+            iBinder = service;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-            musicService = null;
+         //   musicService = null;
+            sc = null;
         }
     };
+
     private void bindServiceConnection() {
         Intent intent = new Intent(MainActivity.this, MusicService.class);
         startService(intent);
-        bindService(intent, sc, this.BIND_AUTO_CREATE);
+    //    bindService(intent, sc, this.BIND_AUTO_CREATE);
     }
+
     public android.os.Handler handler = new android.os.Handler();
     public Runnable runnable = new Runnable() {
         @Override
@@ -82,12 +88,12 @@ public class MainActivity extends AppCompatActivity  {
         musicService = new MusicService();
         bindServiceConnection();
         MusicPic = (ImageView) findViewById(R.id.MusicPic);
-        animator = ObjectAnimator.ofFloat(MusicPic, "rotation",  0, 360);
+
         seekBar = (SeekBar)this.findViewById(R.id.MusicSeekBar);
         seekBar.setProgress(musicService.mp.getCurrentPosition());
         seekBar.setMax(musicService.mp.getDuration());
 
-
+        animator = ObjectAnimator.ofFloat(MusicPic, "rotation",  0, 360);
         animator.setInterpolator(new LinearInterpolator());
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setDuration(5000);
@@ -100,7 +106,15 @@ public class MainActivity extends AppCompatActivity  {
         btnPlayOrPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                musicService.playOrPause();
+                //musicService.playOrPause();
+                try {
+                    int code = 101;
+                    Parcel data = Parcel.obtain();
+                    Parcel reply = Parcel.obtain();
+                    iBinder.transact(code, data, reply, 0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if(btnPlayOrPause.getText().equals("PLAY")) {
                     Toast.makeText(getApplicationContext(),"Start Playing", Toast.LENGTH_SHORT).show();
                     musicStatus.setText("Playing");
@@ -123,7 +137,15 @@ public class MainActivity extends AppCompatActivity  {
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                musicService.stop();
+                //musicService.stop();
+                try {
+                    int code = 102;
+                    Parcel data = Parcel.obtain();
+                    Parcel reply = Parcel.obtain();
+                    iBinder.transact(code, data, reply, 0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 seekBar.setProgress(0);
                 animator.cancel();
                 isStarted = false;
@@ -137,7 +159,6 @@ public class MainActivity extends AppCompatActivity  {
                 System.exit(0);
             }
         });
-
     }
 
     @Override
@@ -152,7 +173,6 @@ public class MainActivity extends AppCompatActivity  {
         seekBar.setMax(musicService.mp.getDuration());
         handler.post(runnable);
         super.onResume();
-        Log.d("hint", "handler post runnable");
     }
 
     @Override
