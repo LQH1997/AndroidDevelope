@@ -1,2 +1,4 @@
-This repo is uesd to store my Android Homeworks and my own researches.
-Sooooooooooooo hard
+在期中项目中，已经完成了在首个页面中的图片匹配，以及卡片循环的动画以及自适应屏幕边界的问题。
+同时，添加了背景音乐功能，以及静音的按钮，文件路径在MusicService中的musicDir字符串中可以进行设置。
+现在准备完成的有搜索功能，以及点击一个按钮然后弹出筛选选项的功能。以及增加卡片的功能。
+除此之外，还有页面之间的跳转以及数据库的功能没有实现。其他功能暂时没有定
