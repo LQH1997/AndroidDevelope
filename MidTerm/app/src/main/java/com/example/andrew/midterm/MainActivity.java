@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private GalleryAdapter mAdapter;
     private MusicService musicService;
     private FloatingActionButton FAB;
+    private ImageButton searchButton, addButton;
+    private EditText searchText;
     public boolean isMute = false;
     private ServiceConnection sc = new ServiceConnection() {
         @Override
@@ -59,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
         bindServiceConnection();
         musicService.playOrPause();
         initData();//初始化数据
+
+        searchButton = (ImageButton) findViewById(R.id.SearchButton); //搜索按钮
+        addButton = (ImageButton) findViewById(R.id.AddButton); //添加按钮
+        searchText = (EditText) findViewById(R.id.editText); //用于搜索的文字
 
         mRecyclerView = (RLoopRecyclerView) findViewById(R.id.myRecyclerView);
         mLayoutManager = new LinearLayoutManager(this);
@@ -108,10 +116,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "You clicked on the sound button", Toast.LENGTH_SHORT).show();
             musicService.playOrPause();
             if(isMute) {
-                //FAB.
-                //设置图片
+               // FAB.setBackgroundResource(R.drawable.sound);
+               // isMute = false;
             } else {
-
+               // FAB.setImageResource(R.drawable.mute);
+               // isMute = true;
             }
         }
     };
