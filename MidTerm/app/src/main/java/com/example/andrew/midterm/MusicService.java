@@ -20,7 +20,7 @@ import android.util.Log;
  */
 public class MusicService extends Service {
 
-    private String[] musicDir = new String[]{Environment.getExternalStorageDirectory().getAbsolutePath()+"/data/melt.mp3"};
+    private String musicDir = new String(Environment.getExternalStorageDirectory().getAbsolutePath()+"/data/melt.mp3");
 
     public final IBinder binder = new MyBinder();
     public class MyBinder extends Binder{
@@ -31,7 +31,7 @@ public class MusicService extends Service {
     public static MediaPlayer mp = new MediaPlayer();
     public MusicService() {
         try {
-            mp.setDataSource(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/data/melt.mp3");
+            mp.setDataSource(musicDir);
             // mp.setDataSource();
             mp.prepare();
         } catch (Exception e) {

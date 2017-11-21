@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<personInfo> myData;
 
-    private RecyclerView mRecyclerView;
+    private RLoopRecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private GalleryAdapter mAdapter;
     private MusicService musicService;
@@ -57,15 +57,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         musicService = new MusicService();
         bindServiceConnection();
-
+        musicService.playOrPause();
         initData();//初始化数据
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
+        mRecyclerView = (RLoopRecyclerView) findViewById(R.id.myRecyclerView);
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);//删掉这个变成垂直滑动
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new GalleryAdapter(myData);
+        mAdapter.setDatas(myData);
 
         mRecyclerView.setAdapter(mAdapter);
         FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.soundButton);//静音按钮
@@ -87,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initData() {
-        String string[] = {"曹操", "男", "100.0.0", "魏", "不知道", "No Pic",
-                           "刘备", "男", "100.0.0", "蜀", "不知道", "No Pic",
-                           "关羽", "男", "100.0.0", "蜀", "不知道", "No Pic",
-                           "张飞", "男", "100.0.0", "蜀", "不知道", "No Pic",
-                           "孙权", "男", "100.0.0", "吴", "不知道", "No Pic",
-                           "周瑜", "男", "100.0.0", "吴", "不知道", "No Pic",
+        String string[] = {"曹操", "男", "100.0.0", "魏", "不知道", "caocao",
+                           "刘备", "男", "100.0.0", "蜀", "不知道", "liubei",
+                           "关羽", "男", "100.0.0", "蜀", "不知道", "guanyu",
+                           "张飞", "男", "100.0.0", "蜀", "不知道", "zhangfei",
+                           "孙权", "男", "100.0.0", "吴", "不知道", "sunquan",
+                           "周瑜", "男", "100.0.0", "吴", "不知道", "zhouyu",
         };
         myData = new ArrayList<personInfo>();
         for(int i = 0; i < string.length / 6; i++) {

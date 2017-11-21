@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.andrew.midterm.MainActivity">
 
-<android.support.v7.widget.RecyclerView
+<com.example.andrew.midterm.RLoopRecyclerView
     android:layout_width="wrap_content"
-    android:layout_height="495dp"
+    android:layout_height="match_parent"
     android:id="@+id/myRecyclerView"
     android:layout_centerVertical="true"
     app:layout_constraintTop_toTopOf="parent"
@@ -16,7 +16,7 @@
     android:layout_marginLeft="8dp"
     app:layout_constraintLeft_toLeftOf="parent">
 
-</android.support.v7.widget.RecyclerView>
+</com.example.andrew.midterm.RLoopRecyclerView>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="50dp"
