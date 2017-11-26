@@ -45,7 +45,7 @@ public class RLoopRecyclerView extends RecyclerView {
             throw new IllegalArgumentException("adapter must  instanceof LoopAdapter!");
         }
         super.setAdapter(adapter);
-        scrollToPosition(getAdapter().getItemRawCount() * 10000);//开始时的偏移量
+        //scrollToPosition(getAdapter().getItemRawCount() * 10000);//开始时的偏移量
     }
 
     private void initView() {
@@ -59,7 +59,7 @@ public class RLoopRecyclerView extends RecyclerView {
 
     public static abstract class LoopAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
 
-        ArrayList<personInfo> datas = new ArrayList<>();
+        public ArrayList<personInfo> datas = new ArrayList<personInfo>();
 
         public void setDatas(ArrayList<personInfo> datas) {
             this.datas = datas;

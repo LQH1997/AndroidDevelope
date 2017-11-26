@@ -7,13 +7,15 @@ import java.io.Serializable;
  */
 
 public class personInfo implements Serializable {
+    private int id;
     private String name;       //名字
     private String gender;     //性别
     private String birthDate;  //出生年月日
     private String homeTown;   //籍贯
     private String shili;      //势力
     private String personPic;  //图像名称
-    public personInfo(String _name, String _gender, String _birthDate, String _homeTown, String _shili, String _personPic) {
+    public personInfo(int id, String _name, String _gender, String _birthDate, String _homeTown, String _shili, String _personPic) {
+        this.id = id;
         this.name = _name;
         this.gender = _gender;
         this.birthDate = _birthDate;
@@ -23,6 +25,7 @@ public class personInfo implements Serializable {
     }
 
     public personInfo() {
+        this.id = -1;
         this.name = "aaa";
         this.gender = "aaa";
         this.birthDate = "aaa";
@@ -30,6 +33,8 @@ public class personInfo implements Serializable {
         this.shili = "aaa";
         this.personPic = "aaa";
     }
+
+    public int getId() { return this.id; }
 
     public String getName() {
         return this.name;

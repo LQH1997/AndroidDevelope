@@ -19,10 +19,9 @@ import java.util.List;
  */
 
 public class GalleryAdapter extends RLoopRecyclerView.LoopAdapter<GalleryAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener{
-    public ArrayList<personInfo> myData;
 
     public GalleryAdapter(ArrayList<personInfo> datas) {
-        myData = datas;
+        this.datas = datas;
     }
 
     public static interface OnItemClickListener {
@@ -47,11 +46,11 @@ public class GalleryAdapter extends RLoopRecyclerView.LoopAdapter<GalleryAdapter
 
     @Override
     public void onBindLoopViewHolder(ViewHolder viewHolder, int position) {
-        int newPosition = position % myData.size();
-        viewHolder.tv.setText(myData.get(position).getName());
-        viewHolder.tv1.setText(myData.get(position).getShili());
+        int newPosition = position % datas.size();
+        viewHolder.tv.setText(datas.get(position).getName());
+        viewHolder.tv1.setText(datas.get(position).getShili());
         //int resID = getResources().getIdentifier(myData.get(position).getPersonPic(), "drawable", "com.example.andrew.lab5");
-         viewHolder.pic.setImageResource(getResource(myData.get(position).getPersonPic()));
+         viewHolder.pic.setImageResource(getResource(datas.get(position).getPersonPic()));
   //      viewHolder.pic.setImageResource();
         viewHolder.itemView.setTag(position);
     }
