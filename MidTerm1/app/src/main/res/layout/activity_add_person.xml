@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.andrew.midterm.AddPerson"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="姓名："
+        style="@style/editText" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="200dp"
+        android:layout_height="42dp"
+        app:layout_constraintStart_toEndOf="@id/nameText"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="18sp"
+        android:inputType="text"/>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/RG"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameText"
+        android:layout_marginTop="20dp">
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="男"/>
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:text="女"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/hometownText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/RG"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/editText"
+        android:layout_marginTop="20dp"
+        android:text="籍贯："/>
+
+    <EditText
+        android:id="@+id/hometown"
+        android:layout_width="200dp"
+        android:layout_height="42dp"
+        app:layout_constraintStart_toEndOf="@id/hometownText"
+        app:layout_constraintTop_toBottomOf="@id/RG"
+        android:layout_marginTop="13dp"
+        android:textSize="18sp"
+        android:inputType="text"/>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/RG2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hometownText"
+        android:layout_marginTop="20dp">
+        <RadioButton
+            android:id="@+id/wei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="魏"/>
+        <RadioButton
+            android:id="@+id/shu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:text="蜀"/>
+        <RadioButton
+            android:id="@+id/wu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:text="吴"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/birthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/RG2"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/editText"
+        android:text="出生日期："
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/birthdate"
+        android:layout_width="200dp"
+        android:layout_height="42dp"
+        app:layout_constraintStart_toEndOf="@id/birthText"
+        app:layout_constraintTop_toBottomOf="@id/RG2"
+        android:layout_marginTop="13dp"
+        android:inputType="date"/>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="提交"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/birthText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+</android.support.constraint.ConstraintLayout>
