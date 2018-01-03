@@ -1,6 +1,7 @@
 package com.example.andrew.final_term;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +27,8 @@ import java.util.ArrayList;
 public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter<MainActivityRecyclerViewAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener{
 
     private ArrayList<Info> myData;
+
+    String IMG_URL= "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514999167116&di=1f73131fa58abaf313d31d585a892186&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fbaike%2Fpic%2Fitem%2F7a899e510fb30f2457bf0965ca95d143ad4b03aa.jpg";
 
     public MainActivityRecyclerViewAdapter(ArrayList<Info> a) {
         myData = a;
@@ -64,7 +72,7 @@ public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter<MainAc
                 String viewTag = viewHolder.iv.getTag().toString();
                 if(viewTag.equals("UNCLICKED")) {
                     viewHolder.iv.setTag("CLICKED");
-                    viewHolder.iv.setImageBitmap(downloadBitmap());
+                    viewHolder.iv.setImageBitmap(downloadBitmap(viewHolder.iv));
 
                 } else {
                     //Do nothing
@@ -116,9 +124,33 @@ public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter<MainAc
         }
     }
 
-    public Bitmap downloadBitmap() {
-        //Bitmap thisImage = new Bitmap();
-        return null;
+    public Bitmap downloadBitmap(ImageButton imageView) {
+        Bitmap bitmap = getBitmapFromUrl(IMG_URL);
+        imageView.setImageBitmap(bitmap);
+        imageView.invalidate();
+
+        return bitmap;
     };
+
+    private Bitmap getBitmapFromUrl(String imgUrl) {
+        URL url;
+        Bitmap bitmap = null;
+
+        try {
+            url = new URL(IMG_URL);
+            InputStream is = url.openConnection().getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            bitmap = BitmapFactory.decodeStream(bis);
+            bis.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+
+    }
+
+
 
 }
