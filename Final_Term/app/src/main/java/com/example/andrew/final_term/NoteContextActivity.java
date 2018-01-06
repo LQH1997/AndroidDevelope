@@ -23,6 +23,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -60,7 +61,11 @@ public class NoteContextActivity extends AppCompatActivity {
         LinearLayout inputLayout;
         ScrollView input;
 
+        ArrayList<CheckBox> checkBoxes;
+
         static final int IMAGE = 1;
+
+
 
 
         public ArrayList<Info> myData;
@@ -79,9 +84,15 @@ public class NoteContextActivity extends AppCompatActivity {
             addTextButton = (ImageButton) findViewById(R.id.addTextButton);
             addImageButton = (ImageButton) findViewById(R.id.addImageButton);
             checkButton = (ImageButton) findViewById(R.id.checkButton);
+            checkButton.setTag("NO");
+            CheckBox initCB = (CheckBox) findViewById(R.id.initCB);
             deleteButton = (ImageButton) findViewById(R.id.deleteButton);
             inputLayout = (LinearLayout) findViewById(R.id.input);
             input = (ScrollView) findViewById(R.id.scrollInput);
+            checkBoxes = new ArrayList<CheckBox>();
+            checkBoxes.add(initCB);
+
+            btnComplete.setVisibility(View.VISIBLE);
 
             lastModifiedTime = intent.getLongExtra("lastModifiedTime", 0L);
             mode = lastModifiedTime == 0 ? CREATING : EDITING;
@@ -95,7 +106,7 @@ public class NoteContextActivity extends AppCompatActivity {
             inputContext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    btnComplete.setVisibility(View.VISIBLE);
+                    //btnComplete.setVisibility(View.VISIBLE);
                     //inputContext.Edit
                 }
             });
@@ -140,11 +151,22 @@ public class NoteContextActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     EditText editText = new EditText(getApplicationContext());
+                    LinearLayout newLL = new LinearLayout(getApplicationContext());
+                    LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    lp1.setMargins(10,10,10,10);
+                    newLL.setLayoutParams(lp1); //the new linear layout
+                    CheckBox cb = new CheckBox(getApplicationContext()); //checkbox
+                    LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(100,100);
+                    cb.setLayoutParams(lp2);
+                    if(checkButton.getTag().equals("NO")) cb.setVisibility(View.GONE);
+                    checkBoxes.add(cb);
+                    newLL.addView(cb);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     lp.setMargins(10,10,10,10);
-                    inputLayout.addView(editText);
+                    newLL.addView(editText);
                     editText.setHint("在这里输入文字");
                     editText.setBackground(null);
+                    inputLayout.addView(newLL);
                     Log.e("input", "text");
                 }
             });
@@ -163,6 +185,23 @@ public class NoteContextActivity extends AppCompatActivity {
                     });
                     ab.setNegativeButton("取消", null);
                     ab.show();
+                }
+            });
+
+            checkButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkButton.getTag().equals("NO")) {
+                        checkButton.setTag("YES");
+                        for(int i = 0; i < checkBoxes.size(); i++) {
+                            checkBoxes.get(i).setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        for(int i = 0; i < checkBoxes.size(); i++) {
+                            checkButton.setTag("NO");
+                            checkBoxes.get(i).setVisibility(View.GONE);
+                        }
+                    }
                 }
             });
 
