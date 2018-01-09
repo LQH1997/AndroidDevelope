@@ -1,11 +1,14 @@
 package com.example.andrew.final_term;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.andrew.final_term.Model.Info;
@@ -50,27 +53,21 @@ public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter<MainAc
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
-        viewHolder.tv.setText(myData.get(position).getTitle());
-        viewHolder.tv1.setText(myData.get(position).simpleContext);
-        viewHolder.tv2.setText(myData.get(position).getTime());
+        Info info = myData.get(position);
+        viewHolder.tv.setText(info.getTitle());
+        viewHolder.tv1.setText(info.simpleContext);
+        viewHolder.tv2.setText(info.getTime());
         //viewHolder.iv.setBackground();
         viewHolder.iv.setTag("UNCLICKED");
+        ArrayList<String> imgs = info.images;
+        if(!imgs.isEmpty()) {
+            byte[] decodedBytes = Base64.decode(imgs.get(0), 0);
+            Bitmap bm =  BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+            viewHolder.iv.setImageBitmap(bm);
+        } else {
+            viewHolder.iv.setImageResource(R.drawable.pic);
+        }
 
-        viewHolder.iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String viewTag = viewHolder.iv.getTag().toString();
-                if(viewTag.equals("UNCLICKED")) {
-                    viewHolder.iv.setTag("CLICKED");
-                    viewHolder.iv.setImageBitmap(downloadBitmap());
-
-                } else {
-                    //Do nothing
-                }
-
-
-            }
-        });
         viewHolder.itemView.setTag(position);
     }
 
@@ -104,23 +101,18 @@ public class MainActivityRecyclerViewAdapter extends RecyclerView.Adapter<MainAc
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv, tv1, tv2;
-        ImageButton iv;
+        ImageView iv;
         public ViewHolder(View view){
             super(view);
             tv = (TextView) view.findViewById(R.id.title);
             tv1 = (TextView) view.findViewById(R.id.context);
             tv2 = (TextView) view.findViewById(R.id.time);
-            iv = (ImageButton) view.findViewById(R.id.previewImage);
+            iv = (ImageView) view.findViewById(R.id.previewImage);
         }
     }
 
     public Info getInfo (int index) {
         return myData.get(index);
     }
-
-    public Bitmap downloadBitmap() {
-        //Bitmap thisImage = new Bitmap();
-        return null;
-    };
 
 }

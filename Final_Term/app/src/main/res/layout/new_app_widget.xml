@@ -10,25 +10,25 @@
         android:id="@+id/widget_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
         android:text="@string/title_default"
         android:textColor="@color/white"
-        android:textSize="15sp"
-        android:textStyle="bold|italic"
+        android:textSize="20sp"
+        android:textStyle="bold"
         tools:text="标题" />
 
     <TextView
         android:id="@+id/appwidget_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/widget_title"
+        android:layout_below="@+id/widget_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="@string/context_default"
         android:textColor="@color/white"
         android:textSize="15sp"
-        android:textStyle="bold|italic"
         tools:text="内容概括" />
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
@@ -19,16 +20,19 @@ public class Info implements Parcelable {
     public String context;
     public String time;
     public String simpleContext;
+    public ArrayList<String> images;
+
     private static int maxTitleLen = 8;
     private static int maxSimpleContextLen = 12;
 
-    public Info(String image, long lastModifiedTime,String context){
+    public Info(String image, long lastModifiedTime,String context, ArrayList<String> images){
         this.previewImage = image;
         this.lastModifiedTime = lastModifiedTime;
         this.title = getTitleFromContext(context);
         this.context = context;
         this.simpleContext = getSimpleContext(context);
         this.time = convertLongToDateString(lastModifiedTime);
+        this.images = images;
     }
 
     protected Info(Parcel in) {
@@ -38,6 +42,7 @@ public class Info implements Parcelable {
         context = in.readString();
         time = in.readString();
         simpleContext = in.readString();
+        images = in.readArrayList(null);
     }
 
     public static final Creator<Info> CREATOR = new Creator<Info>() {
@@ -57,13 +62,27 @@ public class Info implements Parcelable {
         DateFormat format = DateFormat.getDateInstance();
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(lastModifiedTime);
-        return String.format("%s年%s月%s日", cal.get(Calendar.YEAR),  cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        return String.format("%s年%s月%s日", cal.get(Calendar.YEAR),  cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public static String convetLongToTimeClockString(long lastModifiedTime) {
+        Date d = new Date(lastModifiedTime);
+        DateFormat format = DateFormat.getDateInstance();
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(lastModifiedTime);
+
+        int clock = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+
+        return String.format("%d:%d", clock, minute);
     }
 
     public static String getTitleFromContext(String context) {
         int titleLen = context.indexOf('\n');
         if (titleLen > maxTitleLen) {
             return context.substring(0, maxTitleLen) + "...";
+        } else if (titleLen >= 0 && titleLen <= maxTitleLen) {
+            return context.substring(0, titleLen);
         } else if (titleLen == -1 && context.length() > maxTitleLen){
             return context.substring(0, maxTitleLen) + "...";
         } else { // titleLen == -1 && len <= maxTitleLen || titleLen <= maxTitleLen
@@ -120,5 +139,6 @@ public class Info implements Parcelable {
         parcel.writeString(context);
         parcel.writeString(time);
         parcel.writeString(simpleContext);
+        parcel.writeList(images);
     }
 }

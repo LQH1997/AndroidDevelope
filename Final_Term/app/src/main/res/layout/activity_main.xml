@@ -40,12 +40,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@android:drawable/ic_menu_search" />
+                app:srcCompat="@android:drawable/ic_menu_search"
+                android:id="@+id/searchButton"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/searchBarText"/>
-
+                android:id="@+id/searchBarText"
+                android:background="@color/white"
+                android:singleLine="true"/>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 

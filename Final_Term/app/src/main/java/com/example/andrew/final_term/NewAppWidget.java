@@ -46,9 +46,11 @@ public class NewAppWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         if(intent.getAction().equals(STATIC_SATISFACTION)) { // 新建widget
-            info = (Info) intent.getParcelableExtra("info");
 
-            long lastModifiedTime = info.lastModifiedTime;
+            //  get info from lastModifiedTime
+            Long lastModifiedTime = intent.getLongExtra("lastModifiedTime", 0L);
+            info = DBService.getService(context).getInfo(lastModifiedTime);
+
             String title = info.title;
             String simpleContext = info.simpleContext;
 
@@ -60,9 +62,7 @@ public class NewAppWidget extends AppWidgetProvider {
 
             // 设置intent
             Intent intentProductDetail = new Intent(context, NoteContextActivity.class);
-            intentProductDetail.putExtra("info", info);
             intentProductDetail.putExtra("lastModifiedTime", lastModifiedTime);
-            intentProductDetail.putExtra("context", info.context);
 
             // 设置pendingIntent
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intentProductDetail, PendingIntent.FLAG_UPDATE_CURRENT);

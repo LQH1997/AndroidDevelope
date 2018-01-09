@@ -16,17 +16,18 @@
         android:id="@+id/linearLayout"
         android:layout_marginEnd="8dp">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/getBackButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            app:srcCompat="?android:attr/actionModeCloseDrawable" />
+            android:src="@drawable/back"
+            android:background="@color/white"/>
 
         <TextView
-            android:layout_width="80dp"
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="10月10日"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="18dp"
@@ -34,9 +35,9 @@
             />
 
         <TextView
-            android:layout_width="80dp"
+            android:id="@+id/timeClock"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="晚上10点"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="18dp"/>
@@ -70,14 +71,6 @@
         android:layout_marginEnd="8dp">
 
         <ImageButton
-            android:id="@+id/addTextButton"
-            android:layout_width="59dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/white"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
-
-        <ImageButton
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:id="@+id/addImageButton"
@@ -85,22 +78,21 @@
             android:layout_weight="1"
             android:background="@color/white"/>
 
-
         <ImageButton
+            android:id="@+id/alarmButton"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:id="@+id/checkButton"
-            app:srcCompat="@android:drawable/checkbox_on_background"
             android:layout_weight="1"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
 
         <ImageButton
             android:id="@+id/deleteButton"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@android:drawable/ic_menu_delete"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
 
 
     </LinearLayout>
